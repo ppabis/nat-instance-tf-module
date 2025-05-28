@@ -5,7 +5,7 @@ output "target_network_interface" {
 
 output "instance_id" {
     description = "Instance ID of the NAT instance (use for SSM debugging)"
-    value       = "dummy"
+    value       = aws_instance.nat_instance.id
 }
 
 output "elastic_ip" {
