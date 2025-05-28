@@ -1,6 +1,6 @@
 output "target_network_interface" {
     description = "Add 0.0.0.0/0 routes to this network interface in your route tables"
-    value       = "dummy"
+    value       = aws_network_interface.private_eni.id
 }
 
 output "instance_id" {
@@ -10,10 +10,10 @@ output "instance_id" {
 
 output "elastic_ip" {
     description = "Elastic IP address of the NAT instance (maybe you need some allowlists?)"
-    value       = "dummy"
+    value       = aws_eip.elastic_ip.public_ip
 }
 
 output "security_group_id" {
     description = "Security group ID of the NAT instance (if extra rules are needed)"
-    value       = "dummy"
+    value       = aws_security_group.security_group.id
 }
