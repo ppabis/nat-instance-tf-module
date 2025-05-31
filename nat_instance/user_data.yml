@@ -2,6 +2,10 @@
 repo_update: true
 repo_upgrade: all
 
+cloud_final_modules:
+  - [write-files, always]
+  - [scripts-user, always]
+
 write_files:
   - path: /usr/local/bin/nat_instance.sh
     permissions: '0755'
@@ -48,9 +52,6 @@ write_files:
 %{~endfor}
       EOF
       networkctl reload
-
-cloud_final_modules:
-  - [scripts-user, always]
 
 runcmd:
   - [bash, /usr/local/bin/nat_instance.sh]
