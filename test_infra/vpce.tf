@@ -26,7 +26,7 @@ resource "aws_security_group" "vpce" {
 }
 
 resource "aws_vpc_endpoint" "ssm_messages" {
-  for_each            = toset(["ssm-messages", "ssm", "ec2messages"])
+  for_each            = toset(["ssmmessages", "ssm", "ec2messages"])
   vpc_id              = aws_vpc.vpc.id
   service_name        = "com.amazonaws.${data.aws_region.current.name}.${each.value}"
   vpc_endpoint_type   = "Interface"
