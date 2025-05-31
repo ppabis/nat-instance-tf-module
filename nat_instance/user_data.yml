@@ -52,6 +52,9 @@ write_files:
 %{~endfor}
       EOF
       networkctl reload
+      DATETIME=$(date)
+      echo "NAT instance setup complete at $DATETIME"
+      # END OF NAT INSTANCE SETUP
 
 runcmd:
   - [bash, /usr/local/bin/nat_instance.sh]
