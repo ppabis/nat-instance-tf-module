@@ -1,8 +1,3 @@
-data "aws_subnet" "private_subnets" {
-  for_each = toset(var.private_subnets)
-  id       = each.value
-}
-
 resource "aws_security_group" "security_group" {
   vpc_id      = var.vpc_id
   description = "Security group for NAT instance"
