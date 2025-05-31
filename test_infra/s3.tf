@@ -1,7 +1,8 @@
 resource "aws_s3_bucket" "optional_test_bucket" {
-  count  = var.test_bucket_name == "" ? 0 : 1
-  bucket = var.test_bucket_name
-  tags   = { Name = "test-bucket-${var.test_bucket_name}" }
+  count         = var.test_bucket_name == "" ? 0 : 1
+  bucket        = var.test_bucket_name
+  tags          = { Name = "test-bucket-${var.test_bucket_name}" }
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_policy" "optional_test_bucket" {
