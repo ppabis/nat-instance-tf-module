@@ -19,4 +19,5 @@ variable "test_bucket_name" {
 module "test_infra" {
   source           = "./test_infra"
   test_bucket_name = var.test_bucket_name
+  test_count       = 7
 }
