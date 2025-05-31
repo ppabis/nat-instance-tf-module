@@ -6,7 +6,7 @@ resource "aws_route_table" "private_route_table" {
   tags   = { Name = "test-private-route-table" }
   route {
     cidr_block           = "0.0.0.0/0"
-    network_interface_id = module.nat.nat_network_interface_id
+    network_interface_id = module.nat.target_network_interface
   }
 }
 
