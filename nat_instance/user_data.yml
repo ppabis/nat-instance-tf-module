@@ -16,11 +16,30 @@ runcmd:
   # Select public interface
   - ETH0=$(ip -4 addr show device-number-0 | grep -oP 'ens[0-9]+' | head -n1)
   - 'echo "Devices: public: $ETH0 and private: $ETH1"'
+  # Set up IPTables for NATting
   - iptables -F
   - iptables -t nat -F
   - iptables -P FORWARD ACCEPT
   - iptables -t nat -A POSTROUTING -o $ETH0 -j MASQUERADE
   - iptables -A FORWARD -i $ETH0 -o $ETH1 -m state --state RELATED,ESTABLISHED -j ACCEPT
   - iptables -A FORWARD -i $ETH1 -o $ETH0 -j ACCEPT
-  - systemctl enable iptables
+  - systemctl enable --now iptables
   - service iptables save
+  ### Routing configuration
+  # Clear current routes for ETH1 (private card)
+  - rm -rf /etc/systemd/network/70-$ETH1.network.d
+  - mkdir -p /etc/systemd/network/70-$ETH1.network.d
+  # Add traffic coming at eth1 that is NOT from the same subnet to be routed through
+  # itself so the packets are not lost.
+  # Example: if our card is in subnet 10.10.1.0/24, then traffic for destination
+  # 10.10.2.0/24 should be sent to Gateway = 10.10.1.1.
+  - %{for cidr in setsubtract(private_subnets, [primary_subnet])~}
+  - |-
+    cat << 'EOF' >> /etc/systemd/network/70-$ETH1.network.d/routes.conf
+    [Route]
+    Destination=${cidr}
+    Gateway=${cidrhost(primary_subnet, 1)}
+    GatewayOnlink=yes
+    EOF
+  - %{~endfor}
+  - networkctl reload
