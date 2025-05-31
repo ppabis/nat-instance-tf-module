@@ -10,3 +10,8 @@ resource "aws_instance" "nat_instance" {
   iam_instance_profile   = var.create_ssm_role ? aws_iam_instance_profile.ssm_instance_profile[0].name : null
   lifecycle { ignore_changes = [ami] }
 }
+
+resource "aws_eip_association" "nat_eip" {
+  instance_id   = aws_instance.nat_instance.id
+  allocation_id = aws_eip.elastic_ip.id
+}
