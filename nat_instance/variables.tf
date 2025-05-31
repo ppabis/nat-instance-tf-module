@@ -12,7 +12,7 @@ variable "private_subnets" {
   description = "IDs of private subnets that will be routed though the instance"
   type        = list(string)
   validation {
-    condition     = length(var.private_subnet) > 0
+    condition     = length(var.private_subnets) > 0
     error_message = "You must provide at least one private subnet ID"
   }
 }
