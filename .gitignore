@@ -1,2 +1,4 @@
 .terraform
 terraform.*
+# Tf state backend
+backend.tf
