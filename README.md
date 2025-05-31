@@ -35,3 +35,9 @@ The following resources will be created by the module:
   the first subnet on the list in `private_subnets`,
 - optionally `aws_iam_role` and `aws_instance_profile` - used for SSM Sessions.
   Attached policy is the default `AWSManagedInstanceCore` policy.
+
+📁 Files created/modified during boot:
+
+- `/etc/sysctl.d/90-nat.conf` - enable IPv4 forwarding in kernel,
+- `/etc/systemd/network/70-<ETH1>.network.d/routes.conf` - routes configuration for the ETH1 network card,
+- `/etc/sysconfig/iptables` - IPTables config.
