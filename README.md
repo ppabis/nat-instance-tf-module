@@ -3,6 +3,10 @@ NAT Instance Terraform Module
 
 This repository presents (another one) NAT Instance example on AWS.
 
+For more detailed description see my blog post:
+
+- [https://pabis.eu/blog/2025-06-03-AWS-NAT-Instance-from-scratch-simplified.html](https://pabis.eu/blog/2025-06-03-AWS-NAT-Instance-from-scratch-simplified.html)
+
 The inputs to the module are the following:
 
 - `vpc_id` - which VPC create NAT Instance's Security Group
